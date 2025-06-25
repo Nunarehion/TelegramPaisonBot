@@ -3,21 +3,21 @@ from aiogram import types
 
 btnBack = [types.InlineKeyboardButton(text="« Назад", callback_data="back")]
 btnBackToCategories = [types.InlineKeyboardButton(text="« Назад", callback_data="query/categories")]
-
+btnOrderInstructions =  [types.InlineKeyboardButton(text="❓ Как оформить заказ?", callback_data="query/page/instructions")]
+# btnOrderInstructions =  [types.InlineKeyboardButton(text="❓ Как оформить заказ?", url="https://telegra.ph/Kak-zakazat-08-12-2")]
 def kbPageStart():
     buttons = [
-        [types.InlineKeyboardButton(text="❓ Как оформить заказ?", url="https://telegra.ph/Kak-zakazat-08-12-2")],
+        btnOrderInstructions,
         [types.InlineKeyboardButton(text="💰 Калькулятор стоимости", callback_data="query/categories")],
-        [types.InlineKeyboardButton(text="📝 Наши отзывы в телеграмм", url="https://t.me/sinistore")],
+        [types.InlineKeyboardButton(text="📝 Наши отзывы в телеграмм", url="https://t.me/sinistorereviews")],
         [types.InlineKeyboardButton(text="📚 Ответы на популярные вопросы", callback_data="query/faq", disable_web_page_preview=True)],
-        [types.InlineKeyboardButton(text="💬 Написать в ЛС", url="https://t.me/vdncv")]
+        [types.InlineKeyboardButton(text="💬 Написать в ЛС", url="https://t.me/s1nmeister")]
     ]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
 
-
 def kbPageAbout():
-    buttons = [ btnBack, ]
+    buttons = [btnOrderInstructions, btnBack, ]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
 
@@ -45,7 +45,7 @@ def kbPageCalcCategories():
         ],
         [
             types.InlineKeyboardButton(text="👖 Штаны", callback_data="query/categories/pants"),
-            types.InlineKeyboardButton(text="🧦 Носки", callback_data="query/categories/socks")
+            types.InlineKeyboardButton(text="🧦 Носки", callback_data="query/subcategory/socks/all")
         ],
         [
             types.InlineKeyboardButton(text="🧢 Головные уборы", callback_data="query/subcategory/hats/all"),
@@ -54,7 +54,12 @@ def kbPageCalcCategories():
         [
             types.InlineKeyboardButton(text="❓ Моей категории нет в списке", callback_data="query/subcategory/none"),
         ],
-        btnBack
+        # btnOrderInstructions,
+        # btnBack
+        [
+            *btnBack,
+            *btnOrderInstructions
+        ]
     ]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
@@ -62,7 +67,8 @@ def kbPageCalcCategories():
 
 def kbSubNone():
     buttons = [
-        [types.InlineKeyboardButton(text="💬 Написать администратору", url="https://t.me/vdncv")]
+        # btnOrderInstructions,
+        [types.InlineKeyboardButton(text="💬 Написать менеджеру", url="https://t.me/s1nmeister")]
     ]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
@@ -70,34 +76,28 @@ def kbSubNone():
 def kbShoesCategories():
     buttons = [
         [
-            types.InlineKeyboardButton(text="👟 Кроссовки", callback_data="query/subcategory/shoes/sneakers"),
+            types.InlineKeyboardButton(text="👟 Легкая обувь", callback_data="query/subcategory/shoes/light"),
         ],
         [
-            types.InlineKeyboardButton(text="👢 Ботинки", callback_data="query/subcategory/shoes/boots"),
-            types.InlineKeyboardButton(text="👟 Кеды", callback_data="query/subcategory/shoes/sneakers")
+            types.InlineKeyboardButton(text="👢 Тяжелая обувь", callback_data="query/subcategory/shoes/heavy"),
+            types.InlineKeyboardButton(text="🩴 Тапки", callback_data="query/subcategory/shoes/slippers")
         ],
-        [
-            types.InlineKeyboardButton(text="⚽ Бутсы", callback_data="query/subcategory/shoes/cleats"),
-            types.InlineKeyboardButton(text="👞 Туфли", callback_data="query/subcategory/shoes/shoes")
-        ],
+        btnOrderInstructions,
         btnBackToCategories
     ]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
 
+
 def kbClothingCategories():
     buttons = [
         [
-            types.InlineKeyboardButton(text="👕 Футболки", callback_data="query/subcategory/clothing/tshirts"),
-            types.InlineKeyboardButton(text="👚 Блузки", callback_data="query/subcategory/clothing/blouses")
+            types.InlineKeyboardButton(text="👕 Футболка", callback_data="query/subcategory/clothing/t-shirt"),
+            types.InlineKeyboardButton(text="👚 Худи", callback_data="query/subcategory/clothing/hoodie")
         ],
         [
-            types.InlineKeyboardButton(text="👖 Джинсы", callback_data="query/subcategory/clothing/jeans"),
-            types.InlineKeyboardButton(text="👗 Платья", callback_data="query/subcategory/clothing/dresses")
-        ],
-        [
-            types.InlineKeyboardButton(text="🧥 Куртки", callback_data="query/subcategory/clothing/jackets"),
-            types.InlineKeyboardButton(text="🧥 Пальто", callback_data="query/subcategory/clothing/coats")
+            types.InlineKeyboardButton(text="🧥 Легкая куртка", callback_data="query/subcategory/clothing/light_jacket"),
+            types.InlineKeyboardButton(text="🧥 Пуховик", callback_data="query/subcategory/clothing/puffer_jacket")
         ],
         btnBackToCategories
     ]
@@ -107,11 +107,11 @@ def kbClothingCategories():
 def kbPantsCategories():
     buttons = [
         [
-            types.InlineKeyboardButton(text="👖 Джинсы", callback_data="query/subcategory/pants/jeans"),
+            types.InlineKeyboardButton(text="👖 Брюки", callback_data="query/subcategory/pants"),
         ],
         [
-            types.InlineKeyboardButton(text="👖 Спортивные", callback_data="query/subcategory/pants/sport"),
-            types.InlineKeyboardButton(text="👖 Шорты", callback_data="query/subcategory/pants/shorts")
+            types.InlineKeyboardButton(text="👖 Спортивные штаны", callback_data="query/subcategory/pants/sport_pants"),
+            types.InlineKeyboardButton(text="👖 Шорты", callback_data="query/subcategory/clothing/shorts")
         ],
         btnBackToCategories
     ]
@@ -119,37 +119,6 @@ def kbPantsCategories():
     return keyboard
 
 """
-def kbUnderwearCategories():
-    buttons = [
-        [
-            types.InlineKeyboardButton(text="👙 Бикини", callback_data="query/subcategory/underwear/bikini"),
-            types.InlineKeyboardButton(text="👙 Бюстгальтеры", callback_data="query/subcategory/underwear/brassieres")
-        ],
-        [
-            types.InlineKeyboardButton(text="👙 Трусы", callback_data="query/subcategory/underwear/panties"),
-            types.InlineKeyboardButton(text="👙 Нижнее белье", callback_data="query/subcategory/underwear/lingerie")
-        ],
-        btnBackToCategories
-    ]
-    keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
-    return keyboard
-
-def kbHatsCategories():
-    buttons = [
-        [
-            types.InlineKeyboardButton(text="🧢 Бейсболки", callback_data="query/subcategory/hats/baseball_caps"),
-            types.InlineKeyboardButton(text="🧢 Шляпы", callback_data="query/subcategory/hats/hats")
-        ],
-        [
-            types.InlineKeyboardButton(text="🧢 Панамы", callback_data="query/subcategory/hats/panamas"),
-            types.InlineKeyboardButton(text="🧢 Кепки", callback_data="query/subcategory/hats/caps")
-        ],
-        btnBack
-    ]
-    keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
-    return keyboard
-"""
-
 def kbSocksCategories():
     buttons = [
         [
@@ -164,88 +133,36 @@ def kbSocksCategories():
     ]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
-
+"""
 def kbBagsCategories():
     buttons = [
         [
-            types.InlineKeyboardButton(text="👜 Сумки", callback_data="query/subcategory/bags/bags"),
-            types.InlineKeyboardButton(text="🎒 Рюкзаки", callback_data="query/subcategory/bags/backpacks")
+            types.InlineKeyboardButton(text="👜 Маленькая сумка", callback_data="query/subcategory/bags/small"),
+            types.InlineKeyboardButton(text="👜 Большая сумка", callback_data="query/subcategory/bags/large")
         ],
-        [
-            types.InlineKeyboardButton(text="🧳 Чемоданы", callback_data="query/subcategory/bags/suitcases"),
-            types.InlineKeyboardButton(text="👜 Клатчи", callback_data="query/subcategory/bags/clutches")
-        ],
-        btnBack
+        btnBackToCategories
     ]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
 
-"""
-def kbAccessoriesCategories():
-    buttons = [
-        [
-            types.InlineKeyboardButton(text="🧤 Перчатки", callback_data="query/subcategory/accessories/gloves"),
-            types.InlineKeyboardButton(text="🧣 Шарфы", callback_data="query/subcategory/accessories/scarves")
-        ],
-        [
-            types.InlineKeyboardButton(text="🕶️ Очки", callback_data="query/subcategory/accessories/glasses"),
-            types.InlineKeyboardButton(text="📿 Украшения", callback_data="query/subcategory/accessories/jewelry")
-        ],
-        btnBack
-    ]
-    keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
-    return keyboard
 
-def kbCosmeticsCategories():
-    buttons = [
-        [
-            types.InlineKeyboardButton(text="💄 Помады", callback_data="query/subcategory/cosmetics/lipsticks"),
-            types.InlineKeyboardButton(text="💅 Лаки для ногтей", callback_data="query/subcategory/cosmetics/nail_polishes")
-        ],
-        [
-            types.InlineKeyboardButton(text="🧴 Кремы", callback_data="query/subcategory/cosmetics/creams"),
-            types.InlineKeyboardButton(text="🧴 Парфюмерия", callback_data="query/subcategory/cosmetics/perfumes")
-        ],
-        btnBack
-    ]
-    keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
-    return keyboard
 
-def kbSportCategories():
+def kbInputPrice():
     buttons = [
+        btnOrderInstructions,
         [
-            types.InlineKeyboardButton(text="⚽ Футбол", callback_data="query/subcategory/sport/soccer"),
-            types.InlineKeyboardButton(text="🏀 Баскетбол", callback_data="query/subcategory/sport/basketball")
-        ],
-        [
-            types.InlineKeyboardButton(text="🏋️‍♂️ Фитнес", callback_data="query/subcategory/sport/fitness"),
-            types.InlineKeyboardButton(text="🏊‍♂️ Плавание", callback_data="query/subcategory/sport/swimming")
-        ],
-        btnBack
+            types.InlineKeyboardButton(text="« Назад", callback_data="query/categories"), 
+            types.InlineKeyboardButton(text="Вернутся в меню",  callback_data="back")
+        ]
     ]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
-
-def kbFiguresCategories():
-    buttons = [
-        [
-            types.InlineKeyboardButton(text="🧸 Игрушки", callback_data="query/subcategory/figures/toys"),
-            types.InlineKeyboardButton(text="🧩 Конструкторы", callback_data="query/subcategory/figures/building_sets")
-        ],
-        [
-            types.InlineKeyboardButton(text="🚀 Модели", callback_data="query/subcategory/figures/models"),
-            types.InlineKeyboardButton(text="🎲 Настольные игры", callback_data="query/subcategory/figures/board_games")
-        ],
-        btnBack
-    ]
-    keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
-    return keyboard
-"""
 
 def kbAnswerAmount():
     buttons = [
-        [types.InlineKeyboardButton(text="« Вернутся в калькулятор", callback_data="query/categories")], 
-        [types.InlineKeyboardButton(text="Написать в ЛС", url="https://t.me/vdncv")]
+        btnOrderInstructions,
+        [types.InlineKeyboardButton(text="Рассчитать еще", callback_data="query/categories"), 
+        types.InlineKeyboardButton(text="Написать в ЛС", url="https://t.me/s1nmeister")]
     ]
     keyboard = types.InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard

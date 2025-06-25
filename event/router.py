@@ -1,14 +1,41 @@
 from aiogram import Router
 
 import logging
+import json
 from messages.message import *
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
-)
+# logging.basicConfig(
+#     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+#     level=logging.INFO
+# )
+
+
+import logging
+import json
+
+class JsonFormatter(logging.Formatter):
+    def format(self, record):
+        log_obj = {
+            'time': self.formatTime(record, self.datefmt),
+            'name': record.name,
+            'level': record.levelname,
+            'message': record.getMessage(),
+        }
+        return json.dumps(log_obj, ensure_ascii=False)
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+file_handler = logging.FileHandler('app.log', encoding='utf-8')
+file_handler.setLevel(logging.DEBUG)
+
+json_formatter = JsonFormatter()
+file_handler.setFormatter(json_formatter)
+
+logger.addHandler(file_handler)
+# logger = logging.getLogger(__name__)
+
+
 router = Router()
 
 
